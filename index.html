@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Thiago J. Xavier</title>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/6.0.0/normalize.min.css" media="screen" />
+        <link rel="stylesheet" type="text/css" href="css/main.css" media="screen" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik:400,700">
+    </head>
+    <body>
+        <section class="container">
+            <div id="card" class="row">
+                <div class="col-6">
+                    <img class="lazy" data-src="http://placehold.it/100x100" alt="100x100" />
+                </div>
+                <div class="col-6 text-uppercase text-right">
+                    <h1 data-short-surname="Thiago J. Xavier"><span>Thiago Jampaulo Xavier</span></h1>
+                    <h3>Fullstack Developer</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <img class="lazy fluid" data-src="http://placehold.it/1200x450" alt="1200x450" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 text-center text-uppercase">
+                    <h2>Meu Trabalho</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 text-center">
+                    <img class="lazy fluid" data-src="http://placehold.it/400x300" alt="400x300" />
+                    <h3 class="text-uppercase">Bacon ipsum dolor</h3>
+                    <p><a href="https://www.google.com/">https://www.google.com/</a></p>
+                </div>
+                <div class="col-4 text-center">
+                    <img class="lazy fluid" data-src="http://placehold.it/400x300" alt="400x300" />
+                    <h3 class="text-uppercase">Bacon ipsum dolor</h3>
+                    <p><a href="https://www.google.com/">https://www.google.com/</a></p>
+                </div>
+                <div class="col-4 text-center">
+                    <img class="lazy fluid" data-src="http://placehold.it/400x300" alt="400x300" />
+                    <h3 class="text-uppercase">Bacon ipsum dolor</h3>
+                    <p><a href="https://www.google.com/">https://www.google.com/</a></p>
+                </div>
+            </div>
+        </section>
+        <script>
+            (function (w, doc) {
+                "use strict";
+
+                var images = Array.prototype.slice.call(doc.querySelectorAll("img.lazy"));
+
+                function loadImage(element, callback) {
+                    var img = new Image();
+                    var src = element.getAttribute("data-src");
+
+                    img.onload = function () {
+                        if (!!element.parent) {
+                            element.parent.replaceChild(img, element);
+                        } else {
+                            element.src = src;
+                        }
+
+                        if (callback && typeof callback === "function") {
+                            callback();
+                        }
+                    };
+
+                    img.src = src;
+                }
+
+                function elementInViewport(element) {
+                    var visibleArea = element.getBoundingClientRect();
+
+                    return (
+                        visibleArea.top >= 0 && visibleArea.left >= 0 &&
+                        visibleArea.top <= (w.innerHeight || doc.documentElement.clientHeight)
+                    );
+                }
+
+                function processScroll() {
+                    images.forEach(function (element, i, me) {
+                        if (elementInViewport(element)) {
+                            loadImage(element, function () {
+                                me.splice(i, i);
+                            });
+                        }
+                    });
+                }
+
+                processScroll();
+                w.addEventListener("scroll", processScroll);
+            }(window, document));
+        </script>
+    </body>
+</html>
